@@ -1,20 +1,57 @@
-import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import Home from './pages/home/homepage.page';
+import React, {Suspense, lazy} from 'react';
+import { Switch, Route, Redirect} from 'react-router-dom';
 
+
+import Index from "views/Index.js";
+import NucleoIcons from "views/NucleoIcons.js";
+import LandingPage from "views/examples/LandingPage.js";
+import ProfilePage from "views/examples/ProfilePage.js";
+import RegisterPage from "views/examples/RegisterPage.js";
+
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
+import Spinner from './components/spinner/spinner.component';
+
+const Home = lazy(() => import('./pages/home/homepage.page'));
+const RefundPolicy = lazy(() => import('./pages/privacypolicy/privacypolicy.page'));
+const PrivacyPolicy = lazy(() => import('./pages/home/homepage.page'));
+const TermsOfService = lazy(() => import('./pages/termsofservice/termsofservice.page'));
+const ShopPage = lazy(() => import('./pages/shoppage/shoppage.page'));
+const PageNotFound = lazy(() => import('./pages/pagenotfound/pagenotfound.page'));
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Home}/>
-        {/* <Route exact path="/store" component={ShopPage}/>
-        <Route exact path="/refundpolicy" component={RefundPolicy}/>
-        <Route exact path="/termsofservice" component={TermsOfService}/>
-        <Route exact path="/privacypolicy" component={PrivacyPolicy}/>
-        <Route exact path="/pagenotfound" component={PageNotFound}/>         */}
-      </Switch></BrowserRouter>
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner/>}>
+          <Route exact path="/" component={LandingPage}/>
+    <Route exact path="/category/:id" component={ShopPage}/>
+    <Route exact path="/refundPolicy" component={RefundPolicy}/>
+    <Route exact path="/privacyPolicy" component={PrivacyPolicy}/>
+    <Route exact path="/termsOfService" component={TermsOfService}/>
+    <Route exact path="/404" component={PageNotFound}/>
+      <Route path="/index" render={(props) => <Index {...props} />} />
+      <Route
+        path="/nucleo-icons"
+        render={(props) => <NucleoIcons {...props} />}
+      />
+      <Route
+        path="/landing-page"
+        render={(props) => <LandingPage {...props} />}
+      />
+      <Route
+        path="/profile-page"
+        render={(props) => <ProfilePage {...props} />}
+      />
+      <Route
+        path="/register-page"
+        render={(props) => <RegisterPage {...props} />}
+      />
+      <Redirect to="/index" />
+          </Suspense>
+        </ErrorBoundary>
+    
+    </Switch>
       
     </div>
   );

@@ -1,25 +1,52 @@
-import {furnitureActionTypes} from './furniture.types';
-import {addItemToCart} from './furniture.utils';
-
-const INITIAL_STATE = {
-    hidden: true,
-    cartItems: []
-};
- const cartReducer = (state=INITIAL_STATE, action)=> {
-     switch(action.type){
-         case furnitureActionTypes.TOGGLE_CART_HIDDEN:
-             return {
-                 ...state,
-                 hidden: !state.hidden
-             };
-             case furnitureActionTypes.ADD_CART_ITEM:
-                 return {
-                     ...state,
-                     cartItems: addItemToCart(state.cartItems, action.payload)
-                 }
-             default:
-                 return state;
-     }
- }
-
- export default cartReducer;
+export const INITIAL_STATE = {
+    items: [
+      {
+        title: 'Sofas',
+        imageUrl: require('../../assets/img/bazu/sofa.jpg'),
+        id: 1,
+        linkUrl: 'bazu/sofas'
+      },
+      {
+        title: 'Dining tables',
+        imageUrl: require('../../assets/img/bazu/featured.jpg'),
+        id: 2,
+        linkUrl: 'bazu/dining'
+      },
+      {
+        title: 'Sitting tables',
+        imageUrl: require('../../assets/img/bazu/sitting.jpg'),
+        id: 3,
+        linkUrl: 'bazu/sitting'
+      },
+      {
+        title: 'Kitchen Furniture',
+        imageUrl: require('../../assets/img/bazu/cabinets.jpg'),
+        size: 'large',
+        id: 4,
+        linkUrl: 'bazu/counters'
+      },
+      {
+        title: 'Pool',
+        imageUrl: require('../../assets/img/bazu/pool.jpg'),
+        size: 'large',
+        id: 5,
+        linkUrl: 'bazu/study'
+      },
+      {
+        title: 'Study room',
+        imageUrl: require('../../assets/img/bazu/mediaroom.jpg'),
+        size: 'large',
+        id: 6,
+        linkUrl: 'bazu/bedroom'
+      }
+    ]
+  };
+  
+  const furnitureReducer = (state = INITIAL_STATE, action) => {
+    switch (action.type) {
+      default:
+        return state;
+    }
+  };
+  
+  export default furnitureReducer;
