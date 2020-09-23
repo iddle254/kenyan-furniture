@@ -13,7 +13,7 @@ export const FeaturedItem = ({history, match, title,imageUrl, size, linkUrl}) =>
     
     <MenuItemContainer
     size={size}
-    onClick={() => history.push(`${match.url}${linkUrl}`)}
+    onClick={() => history.push(`${match.url}/${linkUrl}`)}
   >
     <BackgroundImageContainer
       className='background-image'
